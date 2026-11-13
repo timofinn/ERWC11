@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Mock Trial Model | The People v. Abigail Williams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column, transcript as a script, teacher notes as margin asides. Light = Classical, dark = Crucible. */
+:root{
+  --paper:#FBF7EE; --card:#FFFDF8; --ink:#2A2724; --muted:#6B6358; --accent:#7A2E2A; --gold:#B8975A; --rule:#DCD2BF; --wash:#F3ECDD;
+  --note-bg:#EEF1EC; --note-edge:#4E5E4D; --note-ink:#2F3A30;
+  /* Google Docs "light 2" shades, same in both themes */
+  --ev:#9FC5E8; --pw:#FFE599; --st:#D5A6BD; --th:#B4A7D6; --lq:#B6D7A8; --oq:#F9CB9C; --hl-ink:#1E1B18;
+  --display:"IM Fell English", "EB Garamond", Georgia, serif;
+  --body:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --util:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#15110E; --card:#1F1915; --ink:#EADFC8; --muted:#A89B84; --accent:#D8675B; --gold:#C9A25E; --rule:#3B3028; --wash:#261E19;
+  --note-bg:#1C221D; --note-edge:#7F9A80; --note-ink:#D6E2D4; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --paper:#15110E; --card:#1F1915; --ink:#EADFC8; --muted:#A89B84; --accent:#D8675B; --gold:#C9A25E; --rule:#3B3028; --wash:#261E19;
+  --note-bg:#1C221D; --note-edge:#7F9A80; --note-ink:#D6E2D4; color-scheme:dark }
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65}
+.wrap{max-width:760px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+header{text-align:center;padding-block:18px 26px;border-bottom:1px solid var(--rule);margin-bottom:22px;background:radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--gold) 14%, transparent), transparent 70%)}
+.kicker{font-family:var(--util);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(34px,7vw,50px);line-height:1.1;margin:.25em 0 .1em;text-wrap:balance}
+.sub{font-style:italic;color:var(--accent);margin:0;font-size:19px}
+.orn{color:var(--gold);letter-spacing:.6em;margin:14px 0 0;font-size:13px}
+h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.2;margin:38px 0 14px;padding-bottom:6px;border-bottom:1px solid var(--rule);text-wrap:balance}
+h2 .num{color:var(--accent)}
+h3{font-family:var(--util);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:0 0 12px}
+.lede{max-width:65ch}
+strong{font-weight:600}
+.list{margin:0 0 12px;padding-left:1.2em;display:grid;gap:4px}
+/* highlights */
+mark.hl{color:var(--hl-ink);padding:.08em .22em;border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hl.ev{background:var(--ev)} .hl.pw{background:var(--pw)} .hl.st{background:var(--st)}
+.hl.th{background:var(--th)} .hl.lq{background:var(--lq)} .hl.oq{background:var(--oq)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* legend */
+.legend{display:grid;gap:8px;margin:0 0 16px;background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:14px 16px}
+.leg{display:grid;grid-template-columns:minmax(150px,auto) 1fr;gap:4px 14px;align-items:baseline}
+.leg .sw{font-family:var(--util);font-weight:600;font-size:15px}
+.leg .what{min-width:0}
+@media (max-width:520px){ .leg{grid-template-columns:1fr} .leg+.leg{border-top:1px dashed var(--rule);padding-top:8px} }
+/* transcript */
+.theme{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px}
+.theme .tl{font-family:var(--util);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);min-width:9.5em}
+.theme + .line{margin-top:16px}
+.line{display:grid;grid-template-columns:8.5em 1fr;gap:2px 14px;margin:0 0 12px}
+.line .who{font-family:var(--util);font-weight:600;font-size:14px;letter-spacing:.02em;padding-top:.15em}
+.line .said{min-width:0}
+.line.pros .who{color:var(--accent)}
+.line.def .who{color:var(--ink)}
+.line.court .who,.line.wit .who{color:var(--muted)}
+.line.wit .said{font-style:italic}
+@media (max-width:560px){ .line{grid-template-columns:1fr} .line .who{font-size:13px} }
+/* teacher notes: clearly not part of the trial */
+.note{font-family:var(--util);font-size:15px;line-height:1.55;color:var(--note-ink);background:var(--note-bg);border-left:3px solid var(--note-edge);border-radius:0 6px 6px 0;padding:10px 14px 2px;margin:6px 0 20px 0}
+@media (min-width:561px){ .note{margin-left:calc(8.5em + 14px)} }
+.note p{margin:0 0 8px}
+.note strong:first-child{text-transform:uppercase;letter-spacing:.08em;font-size:12px;color:var(--note-edge)}
+footer{text-align:center;color:var(--gold);letter-spacing:.6em;margin-top:40px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<p class="kicker">3.00 | A Power Play: The Crucible</p>
+<h1>Mock Trial Model</h1>
+<p class="sub">The People v. Abigail Williams</p>
+<p class="orn" aria-hidden="true">◆ ◆ ◆</p>
+</header>
+<main>
+<p class="lede"><strong>MODEL:</strong> the same trial, run twice. Trial A lands in the A range. Trial B lands in C/D territory. Every move is highlighted. Speeches are trimmed so each reads in about three minutes. Real ones run the full time.</p>
+<section><h2><span class="num">I.</span> Color It</h2>
+<div class="legend">
+<div class="leg"><span class="sw"><mark class="hl ev">Evidence</mark></span><span class="what">Names a moment and quotes the line</span></div>
+<div class="leg"><span class="sw"><mark class="hl pw">Power</mark></span><span class="what">Names the source and shows it working</span></div>
+<div class="leg"><span class="sw"><mark class="hl st">Steelman</mark></span><span class="what">Says the other side's best point, then answers it</span></div>
+<div class="leg"><span class="sw"><mark class="hl th">Theme</mark></span><span class="what">Your team's one sentence, said once by every speaker</span></div>
+<div class="leg"><span class="sw"><mark class="hl lq">Leading question</mark></span><span class="what">Prosecution. Yes/no, so the witness can only agree</span></div>
+<div class="leg"><span class="sw"><mark class="hl oq">Open question</mark></span><span class="what">Defense. Lets the witness tell it</span></div>
+</div>
+<p class="lede"><strong>Missing a color? That move is missing.</strong> Time and Voice can't be colored, so the teacher notes score those. Scoring is on the Rubric.</p>
+</section><section><h2><span class="num">II.</span> How the 12 Minutes Run</h2>
+<ul class="list">
+<li><strong>0:00 Judge</strong> reads the charge (30 sec)</li>
+<li><strong>0:30 Prosecutor 1</strong> opens (2 min)</li>
+<li><strong>2:30 Defender 1</strong> opens (2 min)</li>
+<li><strong>4:30 Prosecutor 2</strong> questions the witness (2 min)</li>
+<li><strong>6:30 Defender 2</strong> questions the witness (2 min)</li>
+<li><strong>8:30 Prosecutor 2</strong> closes, then <strong>Defender 2</strong> closes (1 min each)</li>
+<li><strong>10:30 Jury</strong> fills out sheets and votes (90 sec)</li>
+</ul>
+<h3>Table rules</h3>
+<ul class="list">
+<li><strong>Theme:</strong> each side writes one sentence. Every speaker says it once.</li>
+<li><strong>Questions:</strong> prosecution leads with yes/no questions. Defense asks open ones.</li>
+<li><strong>Time-out:</strong> each table gets one 30-second huddle per trial. Anyone who freezes can call it, and the timer pauses.</li>
+<li><strong>No objections:</strong> if you hear bad evidence, call it out in your own time. That's the bonus point.</li>
+</ul>
+</section><section><h2><span class="num">III.</span> Trial A: The A-Range Version</h2>
+<p class="theme"><span class="tl">Prosecution theme</span> <mark class="hl th" title="Theme">Scared people hide. Abigail aimed.<span class="sr"> (Theme)</span></mark></p>
+<p class="theme"><span class="tl">Defense theme</span> <mark class="hl th" title="Theme">The adults handed her the power.<span class="sr"> (Theme)</span></mark></p>
+<p class="line court"><span class="who">Judge</span><span class="said">Court is in session. Abigail Williams is charged with knowingly accusing innocent people of witchcraft to save herself and get Elizabeth Proctor out of the way. Prosecution, two minutes.</span></p>
+<p class="line court"><span class="who">Timer</span><span class="said">Go.</span></p>
+<p class="line pros"><span class="who">Prosecutor 1</span><span class="said">Abigail didn't panic. She planned. In Act 1, Betty screams, <mark class="hl ev" title="Evidence">"You drank a charm to kill John Proctor's wife!"<span class="sr"> (Evidence)</span></mark> That's before anyone says the word witch. By the end of Act 2, Elizabeth is in chains. Same target. How does Abigail keep the girls in line? <mark class="hl ev" title="Evidence">"I will bring a pointy reckoning that will shudder you."<span class="sr"> (Evidence)</span></mark> <mark class="hl pw" title="Power">That's coercive power. She has no title and no money, so fear is the only power she's got, and she uses it.<span class="sr"> (Power)</span></mark> <mark class="hl st" title="Steelman">The defense is going to say she's a scared 17-year-old orphan. Honestly? She is scared. But scared doesn't explain why every finger points at Elizabeth.<span class="sr"> (Steelman)</span></mark> <mark class="hl th" title="Theme">Scared people hide. Abigail aimed.<span class="sr"> (Theme)</span></mark></span></p>
+<aside class="note"><p><strong>Teacher note:</strong> Evidence 2, two moments, both quoted. Power 2, names coercive and shows it working on the girls. Steelman 2. Theme said once, right at the end. Time 2, done at 1:50. Voice 2, eyes on the jury. <strong>10/10</strong></p></aside>
+<p class="line def"><span class="who">Defender 1</span><span class="said">The prosecution says she aimed. But who said witchcraft first? Not Abigail. Parris and Putnam did, and then <mark class="hl pw" title="Power">Hale walks in with a stack of books. That's expertise power, and the whole room bows to it.<span class="sr"> (Power)</span></mark> Abigail is 17, no parents, and the dancing alone could hang her. So when Hale corners her, she gives him exactly what he came for: <mark class="hl ev" title="Evidence">"She made me do it! She made Betty do it!"<span class="sr"> (Evidence)</span></mark> <mark class="hl st" title="Steelman">The prosecution is right that the charm looks bad. But wanting someone gone isn't the same as making a whole town lose its mind.<span class="sr"> (Steelman)</span></mark> <mark class="hl th" title="Theme">The adults handed her the power.<span class="sr"> (Theme)</span></mark></span></p>
+<aside class="note"><p><strong>Teacher note:</strong> Evidence 2, Power 2, Steelman 2, Theme said once. Time 2. Voice 1, read most of it off the page. <strong>9/10</strong></p></aside>
+<p class="line pros"><span class="who">Prosecutor 2</span><span class="said"><mark class="hl lq" title="Leading question">Abigail, you drank a charm in the woods, didn't you?<span class="sr"> (Leading question)</span></mark></span></p>
+<p class="line wit"><span class="who">Abigail</span><span class="said">(checks card) Yes.</span></p>
+<p class="line pros"><span class="who">Prosecutor 2</span><span class="said"><mark class="hl lq" title="Leading question">A charm to kill Elizabeth Proctor?<span class="sr"> (Leading question)</span></mark></span></p>
+<p class="line wit"><span class="who">Abigail</span><span class="said">...Yes.</span></p>
+<p class="line pros"><span class="who">Prosecutor 2</span><span class="said"><mark class="hl lq" title="Leading question">Elizabeth had fired you, hadn't she?<span class="sr"> (Leading question)</span></mark></span></p>
+<p class="line wit"><span class="who">Abigail</span><span class="said">She did. "She is blackening my name in the village!"</span></p>
+<p class="line pros"><span class="who">Prosecutor 2</span><span class="said"><mark class="hl lq" title="Leading question">And you told the court her spirit stabbed you with a needle.<span class="sr"> (Leading question)</span></mark></span></p>
+<p class="line wit"><span class="who">Abigail</span><span class="said">I did.</span></p>
+<p class="line pros"><span class="who">Prosecutor 2</span><span class="said"><mark class="hl lq" title="Leading question">Nobody else could see that spirit, could they?<span class="sr"> (Leading question)</span></mark></span></p>
+<p class="line wit"><span class="who">Abigail</span><span class="said">...No.</span></p>
+<p class="line pros"><span class="who">Prosecutor 2</span><span class="said"><mark class="hl lq" title="Leading question">And in Act 4, you took your uncle's money and ran, didn't you?<span class="sr"> (Leading question)</span></mark></span></p>
+<p class="line wit"><span class="who">Abigail</span><span class="said">I did.</span></p>
+<p class="line pros"><span class="who">Prosecutor 2</span><span class="said">No further questions.</span></p>
+<aside class="note"><p><strong>Teacher note:</strong> This is cross. Short yes/no questions, one fact each, so Abigail can only agree. She never gets room to tell her side. The spirit question sets up the spectral evidence catch.</p></aside>
+<p class="line def"><span class="who">Defender 2</span><span class="said"><mark class="hl oq" title="Open question">Abigail, tell the jury what happened when Reverend Hale questioned you.<span class="sr"> (Open question)</span></mark></span></p>
+<p class="line wit"><span class="who">Abigail</span><span class="said">I said, "She made me do it! She made Betty do it!"</span></p>
+<p class="line def"><span class="who">Defender 2</span><span class="said"><mark class="hl oq" title="Open question">Why did you say that?<span class="sr"> (Open question)</span></mark></span></p>
+<p class="line wit"><span class="who">Abigail</span><span class="said">I was scared. Everyone was staring at me, and the grown-ups wanted a witch.</span></p>
+<p class="line def"><span class="who">Defender 2</span><span class="said"><mark class="hl oq" title="Open question">What happened in court when Mary said you were all pretending?<span class="sr"> (Open question)</span></mark></span></p>
+<p class="line wit"><span class="who">Abigail</span><span class="said">"A wind, a cold wind, has come." I saw her spirit as a bird.</span></p>
+<aside class="note"><p><strong>Teacher note:</strong> This is direct. Open questions ("tell the jury," "why," "what happened") let Abigail tell it in her own words, so the jury hears the fear.</p><p><strong>Teacher note on the witness:</strong> Accuracy 2, every answer is on the card. In character 2, "I" every time. Answers both sides 2, gave the prosecution the facts and the defense the fear. Time 2. Voice 2. Checking the card isn't a penalty. <strong>10/10</strong></p></aside>
+<p class="line pros"><span class="who">Prosecutor 2 (closing)</span><span class="said">You heard her: <mark class="hl ev" title="Evidence">"I said her spirit stabbed me with a needle."<span class="sr"> (Evidence)</span></mark> Nobody else could see that spirit. That's spectral evidence, and Salem hanged people on it. <mark class="hl st" title="Steelman">The defense says the adults pushed her. They did. But the adults didn't pick Elizabeth. Abigail did.<span class="sr"> (Steelman)</span></mark> <mark class="hl th" title="Theme">Scared people hide. Abigail aimed.<span class="sr"> (Theme)</span></mark> Guilty.</span></p>
+<aside class="note"><p><strong>Teacher note:</strong> Evidence 2, Steelman 2, Theme, Time 2, Voice 2. No yellow: Power 1, she implies the court's power but never names a source. Plus the spectral evidence catch. <strong>9/10 + 1 bonus</strong></p></aside>
+<p class="line def"><span class="who">Defender 2 (closing)</span><span class="said"><mark class="hl st" title="Steelman">Here's the prosecution's best point: the charm is real, and she wanted Elizabeth gone. We're not denying it.<span class="sr"> (Steelman)</span></mark> She told you herself, <mark class="hl ev" title="Evidence">"the grown-ups wanted a witch."<span class="sr"> (Evidence)</span></mark> <mark class="hl pw" title="Power">So where did her power come from? Hale's expertise. The court's title. The girls followed her because the adults believed her.<span class="sr"> (Power)</span></mark> Take away the court and she's a fired servant nobody listens to. <mark class="hl th" title="Theme">The adults handed her the power.<span class="sr"> (Theme)</span></mark> Not guilty.</span></p>
+<aside class="note"><p><strong>Teacher note:</strong> The model steelman. She says the other side's best point in plain words, admits it, then shows why it isn't enough. Evidence 2, Power 2, Steelman 2, Theme, Time 2, Voice 2. <strong>10/10</strong></p></aside>
+</section><section><h2><span class="num">IV.</span> Trial B: The C/D Version</h2>
+<p class="line court"><span class="who">Judge</span><span class="said">Court is in session. Abigail Williams is charged with knowingly accusing innocent people of witchcraft to save herself and get Elizabeth Proctor out of the way. Prosecution, two minutes.</span></p>
+<p class="line court"><span class="who">Timer</span><span class="said">Go.</span></p>
+<p class="line pros"><span class="who">Prosecutor 1</span><span class="said">Um, so Abigail is guilty because she lies the whole play. She lies to her uncle, she lies to Hale, and she threatens the girls in Act 1, like she says she'll bring a reckoning or whatever. She has a lot of power in Salem. The defense will probably say she was scared, but she wasn't. So yeah. Guilty.</span></p>
+<aside class="note"><p><strong>Teacher note:</strong> No colors at all. Evidence 1, real moments but no quote. Power 1, "a lot of power" names nothing. Steelman 1, mentions the defense but just says "no." No theme. Time 1, sat down at 0:50 of 2:00. Voice 2. <strong>6/10</strong></p><p><strong>Fix it:</strong> The quote is on the case file. "I will bring a pointy reckoning that will shudder you" turns that Evidence 1 into a 2.</p></aside>
+<p class="line def"><span class="who">Defender 1</span><span class="said">(reading, head down) She's a 17-year-old orphan with no title, no money and a noose waiting if the dancing comes out. The adults called it witchcraft first. When Hale asked her she said, <mark class="hl ev" title="Evidence">"She made me do it! She made Betty do it!"<span class="sr"> (Evidence)</span></mark> Also the prosecution is just being mean to her.</span></p>
+<aside class="note"><p><strong>Teacher note:</strong> One color. Evidence 2, a real quote. Power 1, "no title" is the right idea, but she never shows how power worked. Steelman 0, "just being mean" is a strawman. No theme. Time 2. Voice 1, read with her head down. <strong>6/10</strong></p></aside>
+<p class="line pros"><span class="who">Prosecutor 2</span><span class="said">Abigail, what did you drink in the woods?</span></p>
+<p class="line wit"><span class="who">Abigail</span><span class="said">Um, she drank... wait. I drank, like, a potion? To make John love me?</span></p>
+<p class="line pros"><span class="who">Prosecutor 2</span><span class="said">Okay. Why did you accuse people?</span></p>
+<p class="line wit"><span class="who">Abigail</span><span class="said">Because they're evil. (laughs) I don't know.</span></p>
+<p class="line pros"><span class="who">Prosecutor 2</span><span class="said">No further questions.</span></p>
+<aside class="note"><p><strong>Teacher note:</strong> No green. These are open questions on cross, so Abigail rambles and nothing useful lands. Lead her instead: "You drank a charm to kill Elizabeth, didn't you?"</p></aside>
+<p class="line def"><span class="who">Defender 2</span><span class="said">Do you think you're guilty?</span></p>
+<p class="line wit"><span class="who">Abigail</span><span class="said">No.</span></p>
+<p class="line def"><span class="who">Defender 2</span><span class="said">Were you scared?</span></p>
+<p class="line wit"><span class="who">Abigail</span><span class="said">Yeah. (long pause) The grown-ups wanted a witch.</span></p>
+<aside class="note"><p><strong>Teacher note:</strong> No orange. Yes/no questions on direct waste your own witness. Ask "Tell the jury what happened when Hale questioned you."</p><p><strong>Teacher note on the witness:</strong> Accuracy 1, the card says the charm was to kill Elizabeth, not to win John. In character 1, opened with "she." Answers both sides 1. Time 1, one long freeze, and nobody called the time-out. Voice 2. <strong>6/10</strong></p></aside>
+<p class="line pros"><span class="who">Prosecutor 2 (closing)</span><span class="said">So she basically admitted it. She's guilty. The defense didn't really prove anything, so you have to vote guilty.</span></p>
+<aside class="note"><p><strong>Teacher note:</strong> No colors. Evidence 1, points at the testimony but never says what was in it. Power 0. Steelman 1. No theme. Time 2. Voice 2. <strong>6/10</strong></p></aside>
+<p class="line def"><span class="who">Defender 2 (closing)</span><span class="said">She was scared, you heard her. Prosecution says she lied, and yeah she lied, but everybody in Salem lied. The grown-ups were in charge, not her. Not guilty.</span></p>
+<aside class="note"><p><strong>Teacher note:</strong> No colors. Evidence 1, no quote. Power 1, "the grown-ups were in charge" hints at a source without naming it. Steelman 1, "everybody lied" isn't an answer. No theme. Time 2, Voice 2. <strong>7/10</strong></p></aside>
+</section><section><h2><span class="num">V.</span> What Made the Difference</h2>
+<ul class="list">
+<li><strong>Quote, don't summarize.</strong> Every blue has the actual line.</li>
+<li><strong>Name the power, then show it working.</strong> "A lot of power" is a 1 every time.</li>
+<li><strong>Say their best point before you beat it.</strong> "They're being mean" is a 0.</li>
+<li><strong>One theme, every speaker.</strong> Trial A's jury hears the same sentence four times. Trial B's hears nothing that ties together.</li>
+<li><strong>Lead on cross, open on direct.</strong> Trial A's prosecutor controls Abigail. Trial B's lets her ramble.</li>
+</ul></section>
+</main>
+<footer aria-hidden="true">◆</footer>
+</div>
+</body>
+</html>
