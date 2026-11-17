@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>3.09 | Trial Timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* One trial, top to bottom. Light = Classical, dark = Crucible, same tokens as the Mock Trial Model page. */
+:root{
+  --paper:#FBF7EE; --card:#FFFDF8; --ink:#2A2724; --muted:#6B6358; --accent:#7A2E2A; --gold:#B8975A; --rule:#DCD2BF; --wash:#F3ECDD;
+  --chip-bg:#7A2E2A; --chip-ink:#FFFDF8;
+  --display:"IM Fell English", "EB Garamond", Georgia, serif;
+  --body:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --util:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#15110E; --card:#1F1915; --ink:#EADFC8; --muted:#A89B84; --accent:#D8675B; --gold:#C9A25E; --rule:#3B3028; --wash:#261E19;
+  --chip-bg:#8E2F2A; --chip-ink:#F4EADB; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --paper:#15110E; --card:#1F1915; --ink:#EADFC8; --muted:#A89B84; --accent:#D8675B; --gold:#C9A25E; --rule:#3B3028; --wash:#261E19;
+  --chip-bg:#8E2F2A; --chip-ink:#F4EADB; color-scheme:dark }
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+header{text-align:center;padding-block:18px 26px;border-bottom:1px solid var(--rule);margin-bottom:22px;background:radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--gold) 14%, transparent), transparent 70%)}
+.kicker{font-family:var(--util);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(34px,7vw,50px);line-height:1.1;margin:.25em 0 .1em;text-wrap:balance}
+.sub{font-style:italic;color:var(--accent);margin:0;font-size:19px}
+.orn{color:var(--gold);letter-spacing:.6em;margin:14px 0 0;font-size:13px}
+h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.2;margin:34px 0 14px;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+h2 .num{color:var(--accent)}
+p{margin:0 0 12px}
+strong{font-weight:600}
+.purpose{font-size:19px;margin:0 0 6px}
+.purpose p{margin:0 0 4px}
+.grade{font-family:var(--util);font-size:15px;color:var(--muted);margin-top:10px}
+.grade strong{color:var(--accent)}
+
+/* timeline */
+.tl{list-style:none;margin:0;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:27px;top:28px;bottom:28px;width:2px;background:var(--rule)}
+.step{position:relative;display:grid;grid-template-columns:56px 1fr;gap:14px;margin:0 0 14px}
+.dot{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--paper);border:2px solid var(--gold);font-family:var(--display);font-size:28px;line-height:1;color:var(--ink);position:relative;z-index:1}
+.box{background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:12px 16px 4px;min-width:0}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 12px;margin-bottom:4px}
+.who{font-family:var(--util);font-weight:600;font-size:21px;letter-spacing:.01em;margin:0}
+.who .what{font-weight:400;color:var(--muted)}
+.chip{font-family:var(--util);font-weight:600;font-size:15px;letter-spacing:.02em;white-space:nowrap;background:var(--chip-bg);color:var(--chip-ink);border-radius:999px;padding:3px 12px}
+.chip.soft{background:var(--wash);color:var(--ink);border:1px solid var(--rule)}
+.job{margin:0 0 10px}
+.pros .who{color:var(--accent)}
+.char .box{border:2px dashed var(--gold);background:var(--wash)}
+.char .dot{border-style:dashed}
+.skip{font-family:var(--util);font-size:14px;color:var(--muted);margin:0 0 10px}
+.court .dot,.jury .dot{border-color:var(--rule);color:var(--muted)}
+
+/* callouts */
+.callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:0 8px 8px 0;padding:14px 18px 6px;margin:0 0 16px}
+.callout h3{font-family:var(--util);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.callout ul{margin:0 0 10px;padding-left:1.2em;display:grid;gap:4px}
+.backup{border-left-color:var(--accent)}
+footer{text-align:center;color:var(--gold);letter-spacing:.6em;margin-top:40px;font-size:13px}
+
+@media (max-width:480px){
+  body{font-size:17px}
+  .tl::before{left:21px}
+  .step{grid-template-columns:44px 1fr;gap:10px}
+  .dot{width:44px;height:44px;font-size:22px}
+  .who{font-size:19px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<p class="kicker">3.00 | A Power Play: The Crucible</p>
+<h1>3.09 | Trial Timeline</h1>
+<p class="sub">Who talks when, and what you're there to do</p>
+<p class="orn" aria-hidden="true">◆ ◆ ◆</p>
+</header>
+<main>
+
+<div class="purpose">
+<p>One trial, seven moves, about seven minutes.</p>
+<p>Find your number. Know your job.</p>
+<p>When it's your turn, perform it. Don't just read it.</p>
+</div>
+<p class="grade"><strong>3.09 Performance Score:</strong> out of 10, Summative.</p>
+
+<section>
+<h2><span class="num">I.</span> The Order</h2>
+<ol class="tl">
+  <li class="step court">
+    <span class="dot" aria-hidden="true">1</span>
+    <div class="box">
+      <div class="top"><p class="who">Judge</p><span class="chip soft">30 sec</span></div>
+      <p class="job">Mr. Finn reads the charges. Court is in session.</p>
+    </div>
+  </li>
+  <li class="step pros">
+    <span class="dot" aria-hidden="true">2</span>
+    <div class="box">
+      <div class="top"><p class="who">Prosecutor 1 <span class="what">· Opening</span></p><span class="chip">40 to 80 sec</span></div>
+      <p class="job">Your best case that the charges are fair. Use what the character did and said. End on a punchy line.</p>
+    </div>
+  </li>
+  <li class="step def">
+    <span class="dot" aria-hidden="true">3</span>
+    <div class="box">
+      <div class="top"><p class="who">Defender 1 <span class="what">· Opening</span></p><span class="chip">40 to 80 sec</span></div>
+      <p class="job">Same job, other side. Show their words and actions in a fairer light. End on a punchy line.</p>
+    </div>
+  </li>
+  <li class="step char">
+    <span class="dot" aria-hidden="true">4</span>
+    <div class="box">
+      <div class="top"><p class="who">The Character <span class="what">· Clear your name</span></p><span class="chip">40 to 80 sec</span></div>
+      <p class="job">Why you've been misunderstood. Who's <strong>really</strong> to blame. Then your plea: not guilty.</p>
+      <p class="skip">Nobody playing the character? Skip this step. See the backup plan below.</p>
+    </div>
+  </li>
+  <li class="step pros">
+    <span class="dot" aria-hidden="true">5</span>
+    <div class="box">
+      <div class="top"><p class="who">Prosecutor 2 <span class="what">· Closing</span></p><span class="chip">40 to 80 sec</span></div>
+      <p class="job">A <strong>different</strong> reason they're guilty. Prosecutor 1 already used theirs.</p>
+    </div>
+  </li>
+  <li class="step def">
+    <span class="dot" aria-hidden="true">6</span>
+    <div class="box">
+      <div class="top"><p class="who">Defender 2 <span class="what">· Final word</span></p><span class="chip">40 to 80 sec</span></div>
+      <p class="job">The last voice the jury hears. Make it the one they remember.</p>
+    </div>
+  </li>
+  <li class="step jury">
+    <span class="dot" aria-hidden="true">7</span>
+    <div class="box">
+      <div class="top"><p class="who">Jury</p><span class="chip soft">1 min</span></div>
+      <p class="job">Mr. Finn calls the vote. Guilty or not guilty, then write why on your Jury Sheet.</p>
+    </div>
+  </li>
+</ol>
+</section>
+
+<section>
+<h2><span class="num">II.</span> Say It Like an Actor</h2>
+<div class="callout">
+<ul>
+<li><strong>40 to 80 seconds.</strong> Under 40 is a shrug. Over 80 and you've lost them.</li>
+<li><strong>How you say it counts.</strong> Eyes up, slow down, let it land.</li>
+<li><strong>Pause before your punch line.</strong> Silence is a power move.</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h2><span class="num">III.</span> No Character? Backup Plan</h2>
+<div class="callout backup">
+<ul>
+<li>Skip step 4. Everything else runs the same.</li>
+<li>Attorney 1 on each side opens. Attorney 2 on each side rebuts.</li>
+<li>Rebuttal: save your most impactful line for <strong>last</strong>. That's what the jury walks out with.</li>
+</ul>
+</div>
+</section>
+
+</main>
+<footer aria-hidden="true">◆ ◆ ◆</footer>
+</div>
+</body>
+</html>
