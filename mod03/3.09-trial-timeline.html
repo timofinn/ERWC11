@@ -35,10 +35,11 @@ h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.2;mar
 h2 .num{color:var(--accent)}
 p{margin:0 0 12px}
 strong{font-weight:600}
-.purpose{font-size:19px;margin:0 0 6px}
-.purpose p{margin:0 0 4px}
-.grade{font-family:var(--util);font-size:15px;color:var(--muted);margin-top:10px}
-.grade strong{color:var(--accent)}
+/* intro: three columns, stacks on phones */
+.intro{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 8px}
+.intro .col{flex:1 1 200px;min-width:0;background:var(--card);border:1px solid var(--rule);border-top:3px solid var(--gold);border-radius:8px;padding:12px 14px 4px;font-size:16px;line-height:1.5}
+.intro h3{font-family:var(--util);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+.intro p{margin:0 0 8px}
 
 /* timeline */
 .tl{list-style:none;margin:0;padding:0;position:relative}
@@ -84,12 +85,22 @@ footer{text-align:center;color:var(--gold);letter-spacing:.6em;margin-top:40px;f
 </header>
 <main>
 
-<div class="purpose">
-<p>One trial, seven moves, about seven minutes.</p>
-<p>Find your number. Know your job.</p>
-<p>When it's your turn, perform it. Don't just read it.</p>
+<div class="intro">
+  <div class="col">
+    <h3>The Task</h3>
+    <p>Get the audience into the show. You're practicing persuasion and performance, not proving the truth.</p>
+  </div>
+  <div class="col">
+    <h3>Your Job</h3>
+    <p>One monologue, about 60 seconds, with your best point and your best delivery. Reading it flat is the one way to fail.</p>
+  </div>
+  <div class="col">
+    <h3>Pro Tips</h3>
+    <p><strong>Prosecution:</strong> Use their own words and actions as evidence. Take a different angle from your partner.</p>
+    <p><strong>Defense:</strong> Show their humanity. Use rhetorical questions and dramatic pauses.</p>
+    <p><strong>Character:</strong> Clear your name, and say who's really to blame.</p>
+  </div>
 </div>
-<p class="grade"><strong>3.09 Performance Score:</strong> out of 10, Summative.</p>
 
 <section>
 <h2><span class="num">I.</span> The Order</h2>
