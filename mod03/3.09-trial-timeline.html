@@ -64,6 +64,14 @@ strong{font-weight:600}
 .callout h3{font-family:var(--util);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
 .callout ul{margin:0 0 10px;padding-left:1.2em;display:grid;gap:4px}
 .backup{border-left-color:var(--accent)}
+/* rubric: one card per skill, stacks on phones */
+.rub{display:grid;gap:10px;margin:0 0 12px}
+.rrow{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 16px 2px}
+.rrow .top{margin-bottom:6px}
+.rrow p{margin:0 0 8px;font-size:17px;line-height:1.45}
+.lbl{font-family:var(--util);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+.note{font-family:var(--util);font-size:16px;color:var(--muted);margin:0 0 6px}
+.lead{font-family:var(--util);font-size:17px;margin:0 0 14px}
 footer{text-align:center;color:var(--gold);letter-spacing:.6em;margin-top:40px;font-size:13px}
 
 @media (max-width:480px){
@@ -103,81 +111,83 @@ footer{text-align:center;color:var(--gold);letter-spacing:.6em;margin-top:40px;f
 </div>
 
 <section>
-<h2><span class="num">I.</span> The Order</h2>
+<h2><span class="num">I.</span> How You're Scored</h2>
+<p class="lead">10 points, same three skills for every role. Scripts in hand are fine. We grade how you say it, not what you memorized.</p>
+<div class="rub">
+  <div class="rrow">
+    <div class="top"><p class="who">Voice and Articulation</p><span class="chip">4 pts</span></div>
+    <p><span class="lbl">Full points</span>Every word clear, pitch rises and falls, slows and pauses on the big lines.</p>
+    <p><span class="lbl">Costs you</span>Mumbled, flat or rushed.</p>
+  </div>
+  <div class="rrow">
+    <div class="top"><p class="who">Body and Delivery</p><span class="chip">3 pts</span></div>
+    <p><span class="lbl">Full points</span>Stands tall, gestures and moves with the words.</p>
+    <p><span class="lbl">Costs you</span>Frozen, fidgeting or hiding behind the page.</p>
+  </div>
+  <div class="rrow">
+    <div class="top"><p class="who">Commitment and Audience Connection</p><span class="chip">3 pts</span></div>
+    <p><span class="lbl">Full points</span>Stays in it start to finish, eyes on the jury, owns the room.</p>
+    <p><span class="lbl">Costs you</span>Breaks character, giggles or talks to the page.</p>
+  </div>
+</div>
+<p class="note">9 to 10 is an A, 8 a B, 7 a C, 6 a D. The verdict doesn't count. Lose the case, keep the A.</p>
+</section>
+
+<section>
+<h2><span class="num">II.</span> The Order</h2>
+<p class="lead">Every speaker gets <strong>40 to 80 seconds</strong>. Speeches only, no questions.</p>
 <ol class="tl">
   <li class="step court">
     <span class="dot" aria-hidden="true">1</span>
     <div class="box">
-      <div class="top"><p class="who">Judge</p><span class="chip soft">30 sec</span></div>
-      <p class="job">Mr. Finn reads the charges. Court is in session.</p>
+      <div class="top"><p class="who">Judge</p></div>
+      <p class="job">Mr. Finn reads the charges.</p>
     </div>
   </li>
   <li class="step pros">
     <span class="dot" aria-hidden="true">2</span>
     <div class="box">
-      <div class="top"><p class="who">Prosecutor 1 <span class="what">· Opening</span></p><span class="chip">40 to 80 sec</span></div>
-      <p class="job">Your best case that the charges are fair. Use what the character did and said. End on a punchy line.</p>
+      <div class="top"><p class="who">Prosecutor 1 <span class="what">· Opening</span></p></div>
+      <p class="job">Why they're guilty. Your best proof.</p>
     </div>
   </li>
   <li class="step def">
     <span class="dot" aria-hidden="true">3</span>
     <div class="box">
-      <div class="top"><p class="who">Defender 1 <span class="what">· Opening</span></p><span class="chip">40 to 80 sec</span></div>
-      <p class="job">Same job, other side. Show their words and actions in a fairer light. End on a punchy line.</p>
+      <div class="top"><p class="who">Defender 1 <span class="what">· Opening</span></p></div>
+      <p class="job">Why they're not. Same facts, fairer light.</p>
     </div>
   </li>
   <li class="step char">
     <span class="dot" aria-hidden="true">4</span>
     <div class="box">
-      <div class="top"><p class="who">The Character <span class="what">· Clear your name</span></p><span class="chip">40 to 80 sec</span></div>
-      <p class="job">Why you've been misunderstood. Who's <strong>really</strong> to blame. Then your plea: not guilty.</p>
-      <p class="skip">Nobody playing the character? Skip this step. See the backup plan below.</p>
+      <div class="top"><p class="who">The Character <span class="what">· Clear your name</span></p></div>
+      <p class="job">Who's <strong>really</strong> to blame. Then plead not guilty.</p>
+      <p class="skip">No one playing the character? Skip this. Steps 5 and 6 become rebuttals: save your best line for last.</p>
     </div>
   </li>
   <li class="step pros">
     <span class="dot" aria-hidden="true">5</span>
     <div class="box">
-      <div class="top"><p class="who">Prosecutor 2 <span class="what">· Closing</span></p><span class="chip">40 to 80 sec</span></div>
-      <p class="job">A <strong>different</strong> reason they're guilty. Prosecutor 1 already used theirs.</p>
+      <div class="top"><p class="who">Prosecutor 2 <span class="what">· Closing</span></p></div>
+      <p class="job">A <strong>different</strong> reason they're guilty.</p>
     </div>
   </li>
   <li class="step def">
     <span class="dot" aria-hidden="true">6</span>
     <div class="box">
-      <div class="top"><p class="who">Defender 2 <span class="what">· Final word</span></p><span class="chip">40 to 80 sec</span></div>
-      <p class="job">The last voice the jury hears. Make it the one they remember.</p>
+      <div class="top"><p class="who">Defender 2 <span class="what">· Final word</span></p></div>
+      <p class="job">The line the jury walks out with.</p>
     </div>
   </li>
   <li class="step jury">
     <span class="dot" aria-hidden="true">7</span>
     <div class="box">
-      <div class="top"><p class="who">Jury</p><span class="chip soft">1 min</span></div>
-      <p class="job">Mr. Finn calls the vote. Guilty or not guilty, then write why on your Jury Sheet.</p>
+      <div class="top"><p class="who">Jury</p></div>
+      <p class="job">Mr. Finn calls the vote. Write why on your Jury Sheet.</p>
     </div>
   </li>
 </ol>
-</section>
-
-<section>
-<h2><span class="num">II.</span> Say It Like an Actor</h2>
-<div class="callout">
-<ul>
-<li><strong>40 to 80 seconds.</strong> Under 40 is a shrug. Over 80 and you've lost them.</li>
-<li><strong>How you say it counts.</strong> Eyes up, slow down, let it land.</li>
-<li><strong>Pause before your punch line.</strong> Silence is a power move.</li>
-</ul>
-</div>
-</section>
-
-<section>
-<h2><span class="num">III.</span> No Character? Backup Plan</h2>
-<div class="callout backup">
-<ul>
-<li>Skip step 4. Everything else runs the same.</li>
-<li>Attorney 1 on each side opens. Attorney 2 on each side rebuts.</li>
-<li>Rebuttal: save your most impactful line for <strong>last</strong>. That's what the jury walks out with.</li>
-</ul>
-</div>
 </section>
 
 </main>
